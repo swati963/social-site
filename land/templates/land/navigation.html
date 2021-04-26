@@ -1,0 +1,72 @@
+{% load custom_tags%}
+
+<div class="container g-text"  >
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+    <a class="navbar-brand" 
+    {%if user.is_authenticated %}
+    href="{%url 'postlist' %}"
+
+    {%else%}
+    href="{% url 'index' %}"
+
+    {%endif%}
+    
+    ><i class="fas fa-comment"></i>Socia Web</a>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      </ul>
+      <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        
+      </ul>
+      
+    </div>
+
+
+      <form class="form-inline w-100 justify-content-center" action="{% url 'profilesearch' %}" method="GET">
+
+        <div class="input-group my-lg-0 " style="font-family: georgia" >
+        <span class="input-group-text" id="basic-addon1">@</span>
+        <input type="text" class="form-control" placeholder="Username"  aria-label="Username" aria-describedby="basic-addon1" name="query" value="{{ request.GET.query }}">
+          <button class="remove-default-btn" type="submit"><i class="fas fa-search"></i></button>
+       </div>
+      </form>
+
+      {% if user.is_authenticated %}
+      <ul class="navbar-nav w-100 " style="padding-left: 3rem;">
+        <li class="nav-item  ">
+          <div class="btn-group">
+            <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user" aria-hidden="true"></i>
+            </a>
+          <div class="dropdown-menu ">
+            <a class="dropdown-item" href="{% url 'profile' user.profile.pk %}">Profile</a>
+            <a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a>
+          </div>
+        
+          </div>
+        </li>
+      <div class="nav-item "  >
+          {% shownotifications %}
+          {% endif %}
+      </div>   
+      </ul>
+
+    </div>
+  </div>
+</nav>
+</div>
+
+
+
+
+
+
